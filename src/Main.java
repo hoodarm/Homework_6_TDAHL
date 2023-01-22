@@ -1,11 +1,46 @@
 public class Main {
     public static void main(String[] args) {
-        final int N = 16;
+        final int N = 7;
         int[][] A = new int[N][N];
-        if (N%2==0)
+        /*if (N%2==0)
             evenSpiralFiller(0,N-1,N-1,0, N, A, 1);
         else
-            oddSpiralFiller(0,N-1,N-1,0, N, A, 1);
+            oddSpiralFiller(0,N-1,N-1,0, N, A, 1);*/
+        nonIterative(0,N-1,N-1,0,N,A);
+    }
+
+    static void nonIterative (int TOP, int BOTTOM, int RIGHT, int LEFT, int N, int[][] A)
+    {
+        int counter = 1;
+        while (counter <= N*N)
+        {
+            for (int i = LEFT; i <= RIGHT; i++) {
+                A[TOP][i] = counter;
+                counter++;
+            }
+            TOP++;
+            for (int i = TOP; i <= BOTTOM; i++) {
+                A[i][RIGHT] = counter;
+                counter++;
+            }
+            RIGHT--;
+            for (int i = RIGHT; i >= LEFT; i--) {
+                A[BOTTOM][i] = counter;
+                counter++;
+            }
+            BOTTOM--;
+            for (int i = BOTTOM; i >= TOP; i--) {
+                A[i][LEFT] = counter;
+                counter++;
+            }
+            LEFT++;
+        }
+        for (int i = 0; i<N; i++){
+            for (int j = 0; j<N; j++){
+                System.out.print(A[i][j] + " ");
+            }
+            System.out.println();
+        }
     }
 
     static void evenSpiralFiller(int TOP, int BOTTOM, int RIGHT, int LEFT, int N, int[][] A, int currN) {
